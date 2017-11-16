@@ -1,0 +1,44 @@
+---
+---
+
+@import "{{ site.theme }}";
+
+
+$logo-green: #61c661;
+
+html,
+.container-fluid,
+.row,
+body {
+		/*To enable another color on the sides, change height to min-heigh
+		/*but this fucks with jekyll and I don't yet know why*/
+		height: 100%
+}
+
+.row {
+		/*can't change until I figure out min-height
+	/*	background-color: black;*/
+}
+
+#main_col{
+		min-height: 100%;
+		background-color: white;
+		padding: 0;
+}
+
+.logo {
+		width: 250px;
+}
+
+nav { width: 100% };
+nav a:hover { color: $logo-green !important; }
+
+.main-content{
+		margin-bottom: 30px;
+}
+
+footer {
+		border-top: 2px solid $logo-green;
+		position: absolute;
+		bottom: 0;
+}
