@@ -13,6 +13,12 @@ permalink: /resources/
     {% endfor %}
 </ul>
 
+<h4>Contact</h4>
+<ul>
+<li>Email: unc@dc919.net</li>
+<li><a href="https://ntropy-unc.slack.com/">Ntropy Slack</a></li>
+</ul>
+
 <h4>Club Presentations</h4>
 
 <h4>Practice</h4>
