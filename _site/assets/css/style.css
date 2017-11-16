@@ -333,4 +333,4 @@ nav a:hover { color: #61c661 !important; }
 
 .main-content { margin-bottom: 30px; }
 
-footer { border-top: 2px solid #61c661; position: absolute; bottom: 0; }
+#footer { /*border-top: 2px solid $logo-green; figure out how to make width 100%*/ position: absolute; bottom: 0; }

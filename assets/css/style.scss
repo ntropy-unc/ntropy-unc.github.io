@@ -37,8 +37,8 @@ nav a:hover { color: $logo-green !important; }
 		margin-bottom: 30px;
 }
 
-footer {
-		border-top: 2px solid $logo-green;
+#footer {
+		/*border-top: 2px solid $logo-green; figure out how to make width 100%*/
 		position: absolute;
 		bottom: 0;
 }

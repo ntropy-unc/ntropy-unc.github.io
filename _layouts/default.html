@@ -16,11 +16,8 @@
 		</head>
 		<body>
 				<div class="container-fluid">
-
 						<div class="row">
-
 								<div class="col"></div>
-
 								<div class="col-8" id="main_col">
 
 								<!-- Navigation -->
@@ -29,6 +26,10 @@
 												<img class="logo" alt= "logo" src="/img/logo.svg"></img>
 										</a>
 										<ul class="navbar-nav">
+												<li class="nav-item">
+														<a class="nav-link" href="/about/">About</a>
+												</li>
+
 												<li class="nav-item">
 														<a class="nav-link" href="/writeups/">Write Ups</a>
 												</li>
@@ -44,7 +45,7 @@
 				<section class="main-content">
 						{{ content }}
 
-						<footer>
+						<footer id="footer">
 								<a href="{{ site.github.repository_url }}">{{ site.github.repository_name }}</a> is maintained by <a href="{{ site.github.owner_url }}">{{ site.github.owner_name }}</a>. 
 								|  Contact : unc@dc919.net 
 						</footer>
