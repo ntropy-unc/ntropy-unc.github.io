@@ -1,3 +1,9 @@
+---
+layout: default
+title: Write Ups 
+permalink: /writeups/
+---
+
 <h2> Write Ups </h2>
 <ul class="post-list"> {% for post in site.posts %}
    <li style="list-style-type: none;">

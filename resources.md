@@ -1,3 +1,8 @@
+---
+layout: default
+title: Resources 
+permalink: /resources/
+---
 <h2> Resources </h2>
 <!-- To add presentation files, put them in the _presentations folder and they should show up here-->
 <ul class="post-list"> {% for post in site.presentations%}

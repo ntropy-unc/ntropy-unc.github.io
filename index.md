@@ -1,3 +1,6 @@
+---
+layout: default
+---
 ### Welcome 
 <div class="home">
 We are a band of UNC Chapel Hill students and noob security enthusiasts with various skillsets and levels of experience interested in pursuing our passion for Cyber Security. 
