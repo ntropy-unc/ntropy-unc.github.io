@@ -21,10 +21,8 @@ The head of the FCC, Ajit Pai, has proposed eliminating these protections and gi
 
   
 
-### Join us on Monday to learn a brief history, how this affects you and what you can do about it.
-  
-    
-    
+### Join us on Monday to learn a brief history, how this affects you and what you can do about it.  
+<br /> <br /> <br />  
 
 #### If you can't join us here are some resources and extra information:
 
