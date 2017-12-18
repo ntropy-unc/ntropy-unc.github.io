@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en-US">
+		<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+				<meta charset="UTF-8">
+
+				<!-- Begin Jekyll SEO tag v2.3.0 -->
+<title>3DSctf - Wargames | Ntropy - UNC</title>
+<meta property="og:title" content="3DSctf - Wargames">
+<meta property="og:locale" content="en_US">
+<meta name="description" content="Wargames">
+<meta property="og:description" content="Wargames">
+<link rel="canonical" href="http://localhost:4000/jekyll/update/post/3dsctf/writeup/2017/12/18/WriteUp-3dsctf-Wargames.html">
+<meta property="og:url" content="http://localhost:4000/jekyll/update/post/3dsctf/writeup/2017/12/18/WriteUp-3dsctf-Wargames.html">
+<meta property="og:site_name" content="Ntropy - UNC">
+<meta property="og:type" content="article">
+<meta property="article:published_time" content="2017-12-18T00:00:00-05:00">
+<script type="application/ld+json">
+{"name":null,"description":"Wargames","author":null,"@type":"BlogPosting","url":"http://localhost:4000/jekyll/update/post/3dsctf/writeup/2017/12/18/WriteUp-3dsctf-Wargames.html","publisher":null,"image":null,"headline":"3DSctf - Wargames","dateModified":"2017-12-18T00:00:00-05:00","datePublished":"2017-12-18T00:00:00-05:00","sameAs":null,"mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/jekyll/update/post/3dsctf/writeup/2017/12/18/WriteUp-3dsctf-Wargames.html"},"@context":"http://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+				<meta name="description" content="The official website for ntropy, UNC Chapel Hill CTF Team">
+				<meta name="viewport" content="width=device-width, initial-scale=1">
+				<meta name="theme-color" content="#157878">
+				<link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700" rel="stylesheet" type="text/css">
+				<link rel="stylesheet" href="/assets/css/style.css?v=a86f5aea29e4652e874810f94c0ae4443ad43780">
+
+
+				<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css">
+				<script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+		</head>
+		<body>
+				<div class="container-fluid">
+						<div class="row">
+								<div class="col"></div>
+								<div class="col-8" id="main_col">
+
+								<!-- Navigation -->
+								<nav class="navbar navbar-expand-sm bg-dark navbar-dark sticky-top">
+										<a class="navbar-brand" href="https://ntropy-unc.github.io/">
+												<img class="logo" alt="logo" src="/img/logo.svg">
+										</a>
+										<ul class="navbar-nav">
+												<li class="nav-item">
+														<a class="nav-link" href="/about/">About</a>
+												</li>
+
+												<li class="nav-item">
+														<a class="nav-link" href="/writeups/">Write Ups</a>
+												</li>
+												<li class="nav-item">
+														<a class="nav-link" href="/events/">Events</a>
+												</li>
+												<li class="nav-item">
+														<a class="nav-link" href="/resources/">Resources</a>
+												</li>
+										</ul>
+								</nav>
+
+				<section class="main-content">
+						<h2 id="wargames">Wargames</h2>
+
+<p>The first forensics challenge, wargames, presents us with a ppm file and the description:</p>
+<blockquote>
+  <p>Joshua is making a big mess while sending some messages.</p>
+</blockquote>
+
+<p>PPM file:</p>
+
+<p><img src="/img/3dsctf/wargames_1.jpg"></p>
+
+<p>Ppm, pbm, and pgm are images in <a href="https://en.wikipedia.org/wiki/Netpbm_format">Netpbm format</a>. These were first invented in the 1980s as way to represent an image file in plain ASCII Text.</p>
+
+<p>The first line of one of these files should have a magic number to identify whether it is a ppm, pgm or pbm and its encoding (ASCII or binary). This should be followed by a line with the picture dimensions and a line with the color range. After that comes the actual picture information.</p>
+
+<p>A quick search provides the following information for magic numbers:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Extension</th>
+      <th>ASCII</th>
+      <th>Binary</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>.pbm</td>
+      <td>P1</td>
+      <td>P4</td>
+    </tr>
+    <tr>
+      <td>.pgm</td>
+      <td>P2</td>
+      <td>P5</td>
+    </tr>
+    <tr>
+      <td>.ppm</td>
+      <td>P3</td>
+      <td>P6</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Opening the given ppm file in vim to examine it, we see the first few lines are</p>
+<div class="highlighter-rouge">
+<pre class="highlight"><code>P4
+1920 1080
+255
+...
+</code></pre>
+</div>
+
+<p>This is a ppm file, but the magic number signifies that it is a binary-encoded pbm file. <em>hmmm…</em></p>
+
+<p>Simply by replacing P4 with P6:</p>
+<div class="highlighter-rouge">
+<pre class="highlight"><code>P6
+1920 1080
+255
+...
+</code></pre>
+</div>
+<p>and saving and exiting the file, my computer was able properly interpret and display the actual image:</p>
+
+<p><img src="/img/3dsctf/wargames_2.png"></p>
+
+
+						<footer id="footer">
+								<a href="http://github.com/ntropy-unc/ntropy-unc.github.io">ntropy-unc.github.io</a> is maintained by <a href="http://github.com/ntropy-unc">ntropy-unc</a>. 
+								|  Contact : unc@dc919.net 
+						</footer>
+				</section>
+
+						
+								</div>
+								<div class="col"></div>
+						</div>
+				</div>
+		</body>
+</html>
