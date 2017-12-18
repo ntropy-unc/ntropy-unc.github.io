@@ -2,7 +2,7 @@
 layout: default
 title:  "ShellterLabs - Summary"
 date:   2017-10-01 10:53:00 -0400
-categories: jekyll update post shellterlabs strings john
+categories: jekyll update post shellterlabs strings john writeup
 ---
 
 <h1>ShellterLabs #16 - An Experience </h1>

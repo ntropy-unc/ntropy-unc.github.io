@@ -2,7 +2,7 @@
 layout: default
 title:  "SquareCTF - 6yte, Floppy, Turing Agent"
 date:   2017-10-14 10:57:00 -0400
-categories: jekyll update post square ctf shellcoding
+categories: jekyll update post square ctf shellcoding writeup
 ---
 
 In collaboration with the Grace Hopper Celebration, Square had hosted a two-week 

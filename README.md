@@ -4,8 +4,6 @@ The offical website of the UNC Chapel Hill CTF Team
 
 ### Adding a Write-Up
 * To add a write up, you can use either html or github flavored markdown to format it  
-* Upload the file to the \_posts directory
-* Create an appropriately named subdirectory within the img directory containing any images used
 * Name your file in the format
 ```
 YYYY-MM-DD-NameOfFile-WriteUp.markdown
@@ -14,6 +12,22 @@ Example:
 ```
 2017-10-14-Square-Writeup.markdown
 ```
+* Before any content, make sure the top of your writeup post has this format:
+```
+---
+layout: default
+title:  "Title of writeup to be displayed on website in quotes"
+date:   YYYY-MM-DD 
+categories: jekyll update post writeup
+---
+```
+* The lines with layout, categories and --- should remain the same. Change the title and date line accordinly
+* Upload the file to the \_posts directory
+* Create an appropriately named subdirectory within the img directory containing any images used
+
+
+
+
 ### Adding Presentation Materials
 TBD
 
