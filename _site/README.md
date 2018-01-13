@@ -26,6 +26,22 @@ categories: jekyll update post writeup
 * Create an appropriately named subdirectory within the img directory containing any images used
 
 
+### Adding an Event
+* Follow the guidelines for posting a writeup, but make sure to add 'events' to the categories:
+* Please include Event in your file name like so:
+```
+YYYY-MM-DD-Event-NameOfFile.markdown
+```
+```
+---
+layout: default
+title:  "Title of writeup to be displayed on website in quotes"
+date:   YYYY-MM-DD 
+categories: jekyll update post events 
+---
+```
+* Note that events also go in the \_posts directory. 
+
 
 
 ### Adding Presentation Materials
