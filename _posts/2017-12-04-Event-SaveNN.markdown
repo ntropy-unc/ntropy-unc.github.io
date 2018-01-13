@@ -2,7 +2,7 @@
 layout: default
 title: "Save Net Neutrality: Information Session"
 date: 2017-12-04
-categories: jekyll update events
+categories: jekyll update events posts
 ---
 
 # Save Net Neutrality!
