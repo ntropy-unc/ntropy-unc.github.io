@@ -27,7 +27,8 @@ body {
 }
 
 .logo {
-		width: 250px;
+		width: 6em;
+		height: 6em;
 }
 
 nav { width: 100% };
@@ -39,6 +40,6 @@ nav a:hover { color: $logo-green !important; }
 
 #footer {
 		/*border-top: 2px solid $logo-green; figure out how to make width 100%*/
-		position: absolute;
+		position: fixed;
 		bottom: 0;
 }
