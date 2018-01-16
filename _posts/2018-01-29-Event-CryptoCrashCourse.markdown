@@ -1,7 +1,7 @@
 ---
 layout: default
 title: "Cryptography Crash Course"
-date: 2018-10-29
+date: 2018-01-29
 categories: jekyll update events posts
 ---
 
