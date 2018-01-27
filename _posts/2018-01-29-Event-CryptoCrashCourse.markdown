@@ -13,4 +13,3 @@ Come learn about hashing, symmetric and asymmetric encryption, authentication an
 
 Little to no programming knowledge required, but it will help.  
 
-Food will be provided.  
