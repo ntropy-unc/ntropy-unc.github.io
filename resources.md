@@ -19,9 +19,12 @@ permalink: /resources/
 <li><a href="https://ntropy-unc.slack.com/">Ntropy Slack</a></li>
 </ul>
 
-<h4>Club Presentations</h4>
+[Club Propaganda](https://docs.google.com/presentation/d/1t0N-XU9Tjh_ZWsebjg6ikcCmJxGrM4jKJbEawurWSrE/edit#slide=id.p)
 
-<h4>Practice</h4>
+<h4>Club Presentations</h4>
+* [ROP](https://docs.google.com/presentation/d/1jNdmJOkrKRN-chNeP6_ytCWDfME8HfarXwycofPef5A/edit?usp=sharing) - Greg
+
+<h4>Practice CTFS</h4>
 <ul>
 <li><a href="http://pwnable.tw/">http://pwnable.tw/</a> (a newer set of high quality pwnable challenges)</li>
 <li><a href="http://pwnable.kr/">http://pwnable.kr/</a> (one of the more popular recent wargamming sets of challenges)</li>
