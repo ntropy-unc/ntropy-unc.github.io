@@ -17,7 +17,7 @@ Our goals include developing proficiency in:
 </ul>
 
 <h3> Meeting Time </h3>
-We meet every Monday in SN011 from 18:00 - 19:00.
+We meet every Saturday in SN011 from 14:00 - 15:00.
 
 </div>
 
