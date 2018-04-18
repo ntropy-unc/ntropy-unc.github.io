@@ -318,14 +318,14 @@ a:hover { text-decoration: underline; }
 .site-footer-credits { color: #819198; }
 
 html, .container-fluid, .row, body { /*To enable another color on the sides, change height to min-heigh
-/*but this fucks with jekyll and I don't yet know why*/ height: 100%; }
+/*but this fucks with jekyll and I don't yet know why*/ height: 100%; background-color: black; background-size: 100%; }
 
 .row { 	/*can't change until I figure out min-height
 /*	background-color: black;*/ }
 
-#main_col { min-height: 100%; background-color: white; padding: 0; }
+#main_col { min-height: 100%; padding: 0; }
 
-.logo { width: 250px; }
+.logo { width: 6em; height: 6em; }
 
 nav { width: 100%; }
 
@@ -333,4 +333,4 @@ nav a:hover { color: #61c661 !important; }
 
 .main-content { margin-bottom: 30px; }
 
-#footer { /*border-top: 2px solid $logo-green; figure out how to make width 100%*/ position: absolute; bottom: 0; }
+#footer { /*border-top: 2px solid $logo-green; figure out how to make width 100%*/ position: fixed; bottom: 0; }

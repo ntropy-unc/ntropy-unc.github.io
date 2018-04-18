@@ -11,7 +11,8 @@
 				<link rel="stylesheet" href="{{ '/assets/css/style.css?v=' | append: site.github.build_revision | relative_url }}">
 
 
-				<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css"></link>
+				<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css"></link> -->
+				<link rel="stylesheet" href="{{ '/assets/css/bootstrap.min.css?v=' | append:site.github.build_revision | relative_url }}">
 				<script src="https://code.jquery.com/jquery-1.10.2.js"></script>
 		</head>
 		<body>
@@ -21,11 +22,11 @@
 								<div class="col-8" id="main_col">
 
 								<!-- Navigation -->
-								<nav class="navbar navbar-expand-sm bg-dark navbar-dark sticky-top">
+								<nav class="navbar navbar-expand-sm bg-dark navbar-dark">
 										<a class="navbar-brand" href="https://ntropy-unc.github.io/">
 												<img class="logo" alt= "logo" src="/img/logo.svg"></img>
 										</a>
-										<ul class="navbar-nav">
+										<ul class="navbar-nav mr-auto">
 												<li class="nav-item">
 														<a class="nav-link" href="/about/">About</a>
 												</li>
@@ -45,7 +46,7 @@
 				<section class="main-content">
 						{{ content }}
 
-						<footer id="footer">
+						<footer id="site-footer">
 								<a href="{{ site.github.repository_url }}">{{ site.github.repository_name }}</a> is maintained by <a href="{{ site.github.owner_url }}">{{ site.github.owner_name }}</a>. 
 								|  Contact : unc@dc919.net 
 						</footer>
