@@ -24,6 +24,11 @@ permalink: /resources/
 <h4>Club Presentations</h4>
 * [ROP](https://docs.google.com/presentation/d/1jNdmJOkrKRN-chNeP6_ytCWDfME8HfarXwycofPef5A/edit?usp=sharing) - Greg
 
+<h4>Links</h4>
+<ul>
+<li><a href="https://github.com/Hack-with-Github/Awesome-Hacking/blob/master/README.md">Awesome Hacking</a> (A truly awesome set of up to date and well maintained resources on all kinds of infosec material)</li>
+</ul>
+
 <h4>Practice CTFS</h4>
 <ul>
 <li><a href="http://pwnable.tw/">http://pwnable.tw/</a> (a newer set of high quality pwnable challenges)</li>
