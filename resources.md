@@ -29,8 +29,21 @@ permalink: /resources/
 <li><a href="https://github.com/Hack-with-Github/Awesome-Hacking/blob/master/README.md">Awesome Hacking</a> (A truly awesome set of up to date and well maintained resources on all kinds of infosec material)</li>
 </ul>
 
+<h4>Streams & Channels</h4>
+<ul>
+<li><a href="https://www.youtube.com/channel/UClcE-kVhqyiHCcjYwcpfj9w">LiveOverflow</a>. Many instructional videos on exploitation and CTFing in a format very suitable for beginners.</li>
+<li><a href="https://www.youtube.com/channel/UCUB9vOGEUpw7IKJRoR4PK-A">Murmus CTF</a>. Streams CTF challenge solving, building infrastruture for tooling, and efforts in finding new vulnerabilities in unexpected software.</li>
+<li><a href="https://www.youtube.com/user/GynvaelEN">GynvaelEN</a>. Experienced security researcher who streams on topics including fuzzing, file formats, operating systems, virtual machines, PHP, and Python.</li>
+<li><a href="https://www.youtube.com/channel/UCa6eh7gCkpPo5XXUDfygQQA">IppSec</a>. Demonstrations of methodically penetration testing HackTheBox and VulnHub services and machines, almost as soon as they retire usually.</li>
+<li><a href="https://www.youtube.com/derekrook">Derek Rook</a>. Offensive security engineer who streams HackTheBox runs and walkthroughs.</li>
+<li><a href="https://www.twitch.tv/videos/283272476">mub1x</a>. Penetration tester and offensive security instructor streaming HackTheBox machines on Twitch.</li>
+<li><a href="https://www.youtube.com/channel/UCCBmFvsR6sIPrmjSVVxY9ng/videos">Justin Steven</a>. Security researcher with several streams on CTF, binary exploitation, and interesting bugs.</li>
+<li><a href="https://www.youtube.com/channel/UCz2aqRQWMhJ4wcJq3XneqRg/videos">OJ Reeves</a>. Metasploit developer and security consultant with streams based on real world binary and kernel exploitation.</li>
+</ul>
+
 <h4>Practice CTFS</h4>
 <ul>
+<li><a href="https://www.hackthebox.eu">https://hackthebox.eu</a> (A wide variety of vulnerable Windows, Linux, and BSD machines for users to remotely exploit, with new machines arriving every few weeks)</li>
 <li><a href="http://pwnable.tw/">http://pwnable.tw/</a> (a newer set of high quality pwnable challenges)</li>
 <li><a href="http://pwnable.kr/">http://pwnable.kr/</a> (one of the more popular recent wargamming sets of challenges)</li>
 <li><a href="https://picoctf.com/">https://picoctf.com/</a>  (Designed for high school students while the event is usually new every year, it's left online and has a great difficulty progression)</li>
