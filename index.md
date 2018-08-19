@@ -17,7 +17,7 @@ Our goals include developing proficiency in:
 </ul>
 
 <h3> Meeting Time </h3>
-We meet every Saturday in SN011 from 14:00 - 15:00.
+Come out to our interest meeting Thursday, August 30th at 5PM in SN011!
 
 </div>
 
