@@ -17,7 +17,6 @@ Our goals include developing proficiency in:
 </ul>
 
 <h3> Meeting Time </h3>
-Come out to our interest meeting Thursday, August 30th at 7PM in SN011!
-
+We're meeting Mondays 8-9PM in SN011!
 </div>
 
