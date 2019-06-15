@@ -1,5 +1,6 @@
 /*! normalize.css v3.0.2 | MIT License | git.io/normalize */
 /** 1. Set default font family to sans-serif. 2. Prevent iOS text size adjust after orientation change, without disabling user zoom. */
+@import url("https://fonts.googleapis.com/css?family=Open+Sans:400,700");
 html { font-family: sans-serif; /* 1 */ -ms-text-size-adjust: 100%; /* 2 */ -webkit-text-size-adjust: 100%; /* 2 */ }
 
 /** Remove default margin. */
@@ -318,12 +319,12 @@ a:hover { text-decoration: underline; }
 .site-footer-credits { color: #819198; }
 
 html, .container-fluid, .row, body { /*To enable another color on the sides, change height to min-heigh
-/*but this fucks with jekyll and I don't yet know why*/ height: 100%; background-color: black; background-size: 100%; }
+/*but this fucks with jekyll and I don't yet know why*/ height: 100%; }
 
 .row { 	/*can't change until I figure out min-height
 /*	background-color: black;*/ }
 
-#main_col { min-height: 100%; padding: 0; }
+#main_col { min-height: 100%; background-color: white; padding: 0; }
 
 .logo { width: 6em; height: 6em; }
 

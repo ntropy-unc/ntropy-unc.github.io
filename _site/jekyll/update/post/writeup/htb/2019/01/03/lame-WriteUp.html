@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en-US">
+		<head>
+				<meta charset="UTF-8">
+
+				<!-- Begin Jekyll SEO tag v2.5.0 -->
+<title>HTB Lame Box Write-Up | Ntropy - UNC</title>
+<meta name="generator" content="Jekyll v3.8.5" />
+<meta property="og:title" content="HTB Lame Box Write-Up" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Lame Box Write-Up Author: Luke Ducharme (@_nTr0py) Date Completed: 03 January 2019 Difficulty: Easy IP: 10.10.10.3 OS: UNIX" />
+<meta property="og:description" content="Lame Box Write-Up Author: Luke Ducharme (@_nTr0py) Date Completed: 03 January 2019 Difficulty: Easy IP: 10.10.10.3 OS: UNIX" />
+<link rel="canonical" href="http://localhost:4000/jekyll/update/post/writeup/htb/2019/01/03/lame-WriteUp.html" />
+<meta property="og:url" content="http://localhost:4000/jekyll/update/post/writeup/htb/2019/01/03/lame-WriteUp.html" />
+<meta property="og:site_name" content="Ntropy - UNC" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2019-01-03T00:00:00-05:00" />
+<script type="application/ld+json">
+{"headline":"HTB Lame Box Write-Up","dateModified":"2019-01-03T00:00:00-05:00","datePublished":"2019-01-03T00:00:00-05:00","url":"http://localhost:4000/jekyll/update/post/writeup/htb/2019/01/03/lame-WriteUp.html","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/jekyll/update/post/writeup/htb/2019/01/03/lame-WriteUp.html"},"description":"Lame Box Write-Up Author: Luke Ducharme (@_nTr0py) Date Completed: 03 January 2019 Difficulty: Easy IP: 10.10.10.3 OS: UNIX","@type":"BlogPosting","@context":"http://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+				<meta name="description" content="The official website for ntropy, UNC Chapel Hill CTF Team"/>
+				<meta name="viewport" content="width=device-width, initial-scale=1">
+				<meta name="theme-color" content="#157878">
+				<link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+				<link rel="stylesheet" href="/assets/css/style.css?v=704dbfa7c8a0f334a5c5fe7e4dec78984891cafe">
+
+
+				<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css"></link>
+				<script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+		</head>
+		<body>
+				<div class="container-fluid">
+						<div class="row">
+								<div class="col"></div>
+								<div class="col-8" id="main_col">
+
+								<!-- Navigation -->
+								<nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+										<a class="navbar-brand" href="https://ntropy-unc.github.io/">
+												<img class="logo" alt="logo" src="/img/logo.svg">
+										</a>
+										<ul class="navbar-nav mr-auto">
+												<li class="nav-item">
+														<a class="nav-link" href="/about/">About</a>
+												</li>
+
+												<li class="nav-item">
+														<a class="nav-link" href="/writeups/">Write Ups</a>
+												</li>
+												<li class="nav-item">
+														<a class="nav-link" href="/events/">Events</a>
+												</li>
+												<li class="nav-item">
+														<a class="nav-link" href="/resources/">Resources</a>
+												</li>
+										</ul>
+								</nav>
+
+				<section class="main-content">
+						<h1 id="lame-box-write-up">Lame Box Write-Up</h1>
+<h1 id="author-luke-ducharme-_ntr0py">Author: Luke Ducharme (<a href="https://github.com/_nTr0py" class="user-mention">@_nTr0py</a>)</h1>
+<h3 id="date-completed-03-january-2019">Date Completed: 03 January 2019</h3>
+<h3 id="difficulty-easy">Difficulty: Easy</h3>
+<h3 id="ip-1010103">IP: 10.10.10.3</h3>
+<h3 id="os-unix">OS: UNIX</h3>
+
+<h3 id="enumeration-using-nmap">Enumeration Using Nmap:</h3>
+<p><img src="/img/lame/nmap.png" alt="nmap screenshot"></p>
+<ul>
+  <li>Flags:
+    <ul>
+      <li>-T4 : Aggressive (4) speed scans; assumes a fast and reliable network.</li>
+      <li>-A : Aggressive scan. Enables OS detection, version detection, script scanning, and traceroute.</li>
+      <li>-v : Verbose output.</li>
+      <li>-Pn : disables host discovery.</li>
+    </ul>
+  </li>
+  <li>After looking at the scan results, one sees it is a Unix box running Samba 3.0.20-Debian.</li>
+</ul>
+
+<h3 id="exploitation">Exploitation:</h3>
+<p><img src="/img/lame/exploit_search.png" alt="metasploit exploit search"></p>
+<ul>
+  <li>After opening the Metasploit Framework, conduct a search using the above command specifying the exploit type and samba.</li>
+  <li>Looking at the multi category (unix) for excellent ranked exploits, we see the usermap_script exploit.</li>
+</ul>
+
+<p><img src="/img/lame/exploit.png" alt="use exploit"></p>
+<ul>
+  <li>Use the selected exploit.</li>
+  <li>Set rhost to 10.10.10.3 target.</li>
+  <li>Run exploit.</li>
+</ul>
+
+<p>Do a lil dance! 😎😎😎</p>
+
+<h3 id="data-mining">Data Mining:</h3>
+<ul>
+  <li>Search root and user directories for flags.</li>
+</ul>
+
+
+						<footer id="site-footer">
+								<a href="https://github.com/ntropy-unc/ntropy-unc.github.io">ntropy-unc.github.io</a> is maintained by <a href="https://github.com/ntropy-unc">ntropy-unc</a>. 
+								|  Contact : unc@dc919.net 
+						</footer>
+				</section>
+
+						
+								</div>
+								<div class="col"></div>
+						</div>
+				</div>
+		</body>
+</html>

@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en-US">
+		<head>
+				<meta charset="UTF-8">
+
+				<!-- Begin Jekyll SEO tag v2.5.0 -->
+<title>HTB Grandpa Box Write-Up | Ntropy - UNC</title>
+<meta name="generator" content="Jekyll v3.8.5" />
+<meta property="og:title" content="HTB Grandpa Box Write-Up" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Grandpa Box Write-Up Author: Luke DuCharme (@_nTr0py) Date Completed: 04 January 2019 Difficulty: Easy IP: 10.10.10.14 OS: Windows" />
+<meta property="og:description" content="Grandpa Box Write-Up Author: Luke DuCharme (@_nTr0py) Date Completed: 04 January 2019 Difficulty: Easy IP: 10.10.10.14 OS: Windows" />
+<link rel="canonical" href="http://localhost:4000/jekyll/update/post/writeup/htb/2019/01/04/grandpa-WriteUp.html" />
+<meta property="og:url" content="http://localhost:4000/jekyll/update/post/writeup/htb/2019/01/04/grandpa-WriteUp.html" />
+<meta property="og:site_name" content="Ntropy - UNC" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2019-01-04T00:00:00-05:00" />
+<script type="application/ld+json">
+{"headline":"HTB Grandpa Box Write-Up","dateModified":"2019-01-04T00:00:00-05:00","datePublished":"2019-01-04T00:00:00-05:00","url":"http://localhost:4000/jekyll/update/post/writeup/htb/2019/01/04/grandpa-WriteUp.html","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/jekyll/update/post/writeup/htb/2019/01/04/grandpa-WriteUp.html"},"description":"Grandpa Box Write-Up Author: Luke DuCharme (@_nTr0py) Date Completed: 04 January 2019 Difficulty: Easy IP: 10.10.10.14 OS: Windows","@type":"BlogPosting","@context":"http://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+				<meta name="description" content="The official website for ntropy, UNC Chapel Hill CTF Team"/>
+				<meta name="viewport" content="width=device-width, initial-scale=1">
+				<meta name="theme-color" content="#157878">
+				<link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+				<link rel="stylesheet" href="/assets/css/style.css?v=704dbfa7c8a0f334a5c5fe7e4dec78984891cafe">
+
+
+				<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css"></link>
+				<script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+		</head>
+		<body>
+				<div class="container-fluid">
+						<div class="row">
+								<div class="col"></div>
+								<div class="col-8" id="main_col">
+
+								<!-- Navigation -->
+								<nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+										<a class="navbar-brand" href="https://ntropy-unc.github.io/">
+												<img class="logo" alt="logo" src="/img/logo.svg">
+										</a>
+										<ul class="navbar-nav mr-auto">
+												<li class="nav-item">
+														<a class="nav-link" href="/about/">About</a>
+												</li>
+
+												<li class="nav-item">
+														<a class="nav-link" href="/writeups/">Write Ups</a>
+												</li>
+												<li class="nav-item">
+														<a class="nav-link" href="/events/">Events</a>
+												</li>
+												<li class="nav-item">
+														<a class="nav-link" href="/resources/">Resources</a>
+												</li>
+										</ul>
+								</nav>
+
+				<section class="main-content">
+						<h1 id="grandpa-box-write-up">Grandpa Box Write-Up</h1>
+<h3 id="author-luke-ducharme-_ntr0py">Author: Luke DuCharme (<a href="https://github.com/_nTr0py" class="user-mention">@_nTr0py</a>)</h3>
+<h3 id="date-completed-04-january-2019">Date Completed: 04 January 2019</h3>
+<h3 id="difficulty-easy">Difficulty: Easy</h3>
+<h3 id="ip-10101014">IP: 10.10.10.14</h3>
+<h3 id="os-windows">OS: Windows</h3>
+
+<h3 id="enumberation-using-nmap">Enumberation Using Nmap:</h3>
+<p><img src="/img/grandpa/nmap.png" alt="nmap screenshot">
+See Lame write up for description of flags.</p>
+
+<ul>
+  <li>Port 80 is open, and a service enumeration indicates Microsoft IIS httpd 6.0 is running on that port.</li>
+</ul>
+
+<h3 id="exploitation">Exploitation</h3>
+<p><img src="/img/grandpa/exploit_search.png" alt="exploit search"></p>
+<ul>
+  <li>A search in the exploit database shows a few suitable exploits for IIS 6.0.</li>
+  <li>After a series of trial and error, the iis_webdav_scstoragepathfromurl is the best candidate.</li>
+</ul>
+
+<p><img src="/img/grandpa/exploit_prep.png" alt="exploit prep"></p>
+<ul>
+  <li>After setting the remote host to the target as well as changing the default local port for the TCP handler (opsec purposes), the exploit is ready to be run.</li>
+</ul>
+
+<h3 id="sa-and-privelege-escalation-privesc">SA and Privelege Escalation (Privesc)</h3>
+<p><img src="/img/grandpa/exploit1.png" alt="exploit 1">
+<img src="/img/grandpa/exploit2.png" alt="exploit 2"></p>
+<ul>
+  <li>The exploit is successful and a Meterpreter session is spawned. After doing some situational awareness (SA), it’s apparent the session is at the user level. Thus, a privesc exploit is required.</li>
+  <li>To determine which one to use, Meterpreter has a script called local_exploit_suggester.</li>
+</ul>
+
+<p><img src="/img/grandpa/migration.png" alt="migration"></p>
+<ul>
+  <li>Before running the script, the Meterpreter session needs to be migrated to a more stable session at the current privelege level. From the process list in the SA, davcdata.exe (PID 2332) seems to be the best option.</li>
+  <li>After a successful migration and running local_exploit_suggester, there are a few possible options, and after trying them, ms14_070_tcpip_ioctl is the best option.</li>
+</ul>
+
+<p><img src="/img/grandpa/privesc.png" alt="privesc"></p>
+<ul>
+  <li>After backgrounding the session and setting the exploit options, the exploit is successful, and the session’s priveleges have been escalated to SYSTEM (woooot woooot 🥳🥳🥳)</li>
+</ul>
+
+<h3 id="datamining">Datamining</h3>
+<ul>
+  <li>Datamine for the user and administrator flags. (Desktops are normally a good place to look on windows…)</li>
+</ul>
+
+
+						<footer id="site-footer">
+								<a href="https://github.com/ntropy-unc/ntropy-unc.github.io">ntropy-unc.github.io</a> is maintained by <a href="https://github.com/ntropy-unc">ntropy-unc</a>. 
+								|  Contact : unc@dc919.net 
+						</footer>
+				</section>
+
+						
+								</div>
+								<div class="col"></div>
+						</div>
+				</div>
+		</body>
+</html>
