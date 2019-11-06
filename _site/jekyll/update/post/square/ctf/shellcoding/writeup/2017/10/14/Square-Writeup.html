@@ -16,14 +16,14 @@
 <meta property="og:type" content="article" />
 <meta property="article:published_time" content="2017-10-14T10:57:00-04:00" />
 <script type="application/ld+json">
-{"headline":"SquareCTF - 6yte, Floppy, Turing Agent","dateModified":"2017-10-14T10:57:00-04:00","datePublished":"2017-10-14T10:57:00-04:00","url":"http://localhost:4000/jekyll/update/post/square/ctf/shellcoding/writeup/2017/10/14/Square-Writeup.html","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/jekyll/update/post/square/ctf/shellcoding/writeup/2017/10/14/Square-Writeup.html"},"description":"In collaboration with the Grace Hopper Celebration, Square had hosted a two-week long CTF that (as of time of writing) has just ended yesterday. This wide window in which to work with meant we were able to take a much slower pace to working on it than usual while still solving several of the challenges. I definitely had a good time working on some of these.","@type":"BlogPosting","@context":"http://schema.org"}</script>
+{"headline":"SquareCTF - 6yte, Floppy, Turing Agent","dateModified":"2017-10-14T10:57:00-04:00","datePublished":"2017-10-14T10:57:00-04:00","description":"In collaboration with the Grace Hopper Celebration, Square had hosted a two-week long CTF that (as of time of writing) has just ended yesterday. This wide window in which to work with meant we were able to take a much slower pace to working on it than usual while still solving several of the challenges. I definitely had a good time working on some of these.","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/jekyll/update/post/square/ctf/shellcoding/writeup/2017/10/14/Square-Writeup.html"},"@type":"BlogPosting","url":"http://localhost:4000/jekyll/update/post/square/ctf/shellcoding/writeup/2017/10/14/Square-Writeup.html","@context":"http://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
 
 				<meta name="description" content="The official website for ntropy, UNC Chapel Hill CTF Team"/>
 				<meta name="viewport" content="width=device-width, initial-scale=1">
 				<meta name="theme-color" content="#157878">
 				<link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
-				<link rel="stylesheet" href="/assets/css/style.css?v=ca091a7e7005eb9aa2cd9cc08030b71b663a4227">
+				<link rel="stylesheet" href="/assets/css/style.css?v=685d4e8d1f06ab10c8ee7065aaa3637b335e4f04">
 
 
 				<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css"></link>
@@ -79,23 +79,23 @@ takeaway right before the jump into shellcode.</p>
 <p><img alt="Shown here, setup of eax=4, ebx=1, edx=5, edi=flag" title="Know your syscalls?" src="/pics/SquareCTF/6yte-CriticalJumpToShellcode.png"></p>
 
 <p>So a whole lot of the work is already setup to point into a particular direction.
-Where <code class="highlighter-rouge">eax</code> is set to 4, executing an <code class="highlighter-rouge">int 0x80</code> will 
-<a href="https://syscalls.kernelgrok.com/">result in a sys_write</a>. Where <code class="highlighter-rouge">ebx</code> is set to 1,
+Where <code class="language-plaintext highlighter-rouge">eax</code> is set to 4, executing an <code class="language-plaintext highlighter-rouge">int 0x80</code> will 
+<a href="https://syscalls.kernelgrok.com/">result in a sys_write</a>. Where <code class="language-plaintext highlighter-rouge">ebx</code> is set to 1,
 it then holds the file descriptor to standard output.  What’s left is to set 
-<code class="highlighter-rouge">ecx</code> to the flag’s pointer in edi, and change the size in <code class="highlighter-rouge">edx</code> to be 
+<code class="language-plaintext highlighter-rouge">ecx</code> to the flag’s pointer in edi, and change the size in <code class="language-plaintext highlighter-rouge">edx</code> to be 
 something much greater than 5.</p>
 
 <p>My tool of choice in this was Python and Pwntools, which uses G(NU)AS to 
 very handily script the transition from assembler to bytes.</p>
 
 <p>Starting off with getting the flag pointer out of edi and into ecx, I simply 
-swapped them with <code class="highlighter-rouge">xchg ecx, edi;</code>, followed by the syscall. That worked out, 
+swapped them with <code class="language-plaintext highlighter-rouge">xchg ecx, edi;</code>, followed by the syscall. That worked out, 
 but only printed a few bytes of a much larger flag. I spent a little time 
 thinking of what safe value I could load in there that wasn’t so large I’d
 cause a segfault, but could still fit in the two remaining bytes I had.</p>
 
-<p>The <code class="highlighter-rouge">cs</code> register just so happened to have a consistently usable value for me 
-in local debugging, so I just moved it into edx by doing <code class="highlighter-rouge">push cs; pop edx</code>.</p>
+<p>The <code class="language-plaintext highlighter-rouge">cs</code> register just so happened to have a consistently usable value for me 
+in local debugging, so I just moved it into edx by doing <code class="language-plaintext highlighter-rouge">push cs; pop edx</code>.</p>
 
 <p><img src="/pics/SquareCTF/PwntoolsHex.png"></p>
 
@@ -104,10 +104,10 @@ in local debugging, so I just moved it into edx by doing <code class="highlighte
 <figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="kn">import</span> <span class="nn">urllib</span>
 <span class="kn">from</span> <span class="nn">subprocess</span> <span class="kn">import</span> <span class="n">Popen</span><span class="p">,</span> <span class="n">PIPE</span>
 
-<span class="c">#Should call write(stdout, env[flag], 0x23)</span>
-<span class="s">''' asm('xchg ecx, edi; push cs; pop edx; int 0x80;').encode('hex') '''</span>
-<span class="n">data</span> <span class="o">=</span> <span class="s">'87f90e5acd80'</span> <span class="c">#Six bytes read through scanf("%2x")</span>
-
+<span class="c1">#Should call write(stdout, env[flag], 0x23)
+</span><span class="s">''' asm('xchg ecx, edi; push cs; pop edx; int 0x80;').encode('hex') '''</span>
+<span class="n">data</span> <span class="o">=</span> <span class="s">'87f90e5acd80'</span> <span class="c1">#Six bytes read through scanf("%2x")
+</span>
 <span class="n">curl_arg</span> <span class="o">=</span> <span class="n">urllib</span><span class="o">.</span><span class="n">encode</span><span class="p">({</span><span class="s">'argument'</span><span class="p">:</span><span class="n">data</span><span class="p">})</span>
 
 <span class="n">curl_str</span> <span class="o">=</span> <span class="p">[</span><span class="s">"curl"</span><span class="p">,</span> <span class="s">'https://your-own-team-link.capturethesquare.com/6yte_test'</span><span class="p">,</span> <span class="s">'--data'</span><span class="p">,</span> <span class="n">curl_arg</span><span class="p">,</span> <span class="s">'-k'</span><span class="p">]</span>
@@ -117,7 +117,7 @@ in local debugging, so I just moved it into edx by doing <code class="highlighte
 <span class="k">while</span> <span class="n">p</span><span class="o">.</span><span class="n">poll</span><span class="p">()</span> <span class="o">!=</span> <span class="bp">None</span><span class="p">:</span>
   <span class="k">continue</span>
 
-<span class="k">print</span> <span class="n">p</span><span class="o">.</span><span class="n">stdout</span><span class="o">.</span><span class="n">read</span><span class="p">()</span> <span class="c">#Should have our flag.</span></code></pre></figure>
+<span class="k">print</span> <span class="n">p</span><span class="o">.</span><span class="n">stdout</span><span class="o">.</span><span class="n">read</span><span class="p">()</span> <span class="c1">#Should have our flag.</span></code></pre></figure>
 
 <p>And we get…</p>
 
@@ -132,7 +132,7 @@ but the size of it was allowed to be much larger and I really only needed to do 
 Can you figure out how this bootable floppy works and recover the secret data?</p>
 </blockquote>
 
-<p>Floppy’s challenge prompt gives you a floppy disk image identified by <code class="highlighter-rouge">file</code> as a 
+<p>Floppy’s challenge prompt gives you a floppy disk image identified by <code class="language-plaintext highlighter-rouge">file</code> as a 
 DOS/MBR boot sector. I tried for quite some time to get some successful static 
 analysis going in radare2, but analyzing it as a static file was definitely not
 that great. A lot of the functionality in radare2 actually seemed as confused 
@@ -163,7 +163,7 @@ settled for using bochs internal command line debugger.</p>
 
 <figure class="highlight"><pre><code class="language-bash" data-lang="bash">./configure <span class="nt">--enable-disasm</span> <span class="nt">--enable-x86-64</span> <span class="nt">--enable-es1370</span> <span class="nt">--enable-debugger</span>
 make
-<span class="nv">BXSHARE</span><span class="o">=</span><span class="k">$(</span><span class="nb">pwd</span><span class="k">)</span>/bios/ bochs <span class="c">#BXSHARE acts as a base directory for configs and ROMS</span></code></pre></figure>
+<span class="nv">BXSHARE</span><span class="o">=</span><span class="si">$(</span><span class="nb">pwd</span><span class="si">)</span>/bios/ bochs <span class="c">#BXSHARE acts as a base directory for configs and ROMS</span></code></pre></figure>
 
 <p>After doing some config file editing to point bochs at my floppy.img and also enabling
 floppy-disk drives, I was successfully booting and debugging the floppy disk image.
@@ -175,12 +175,12 @@ to make much better sense of.</p>
 <p>Onto the actual reverse engineering…</p>
 
 <p>I focused first on finding where relevant data lied and what code hit it.
-Everything relevant to my investigation was loaded at an <code class="highlighter-rouge">0xe00</code> offset from 
+Everything relevant to my investigation was loaded at an <code class="language-plaintext highlighter-rouge">0xe00</code> offset from 
 where they were in my static file. By setting a watchpoint on some data
 I knew would be written out onto the screen I began to identify critical functions
 to start working backwards from.</p>
 
-<p>In my dump, the function at <code class="highlighter-rouge">0x1e00</code> converted
+<p>In my dump, the function at <code class="language-plaintext highlighter-rouge">0x1e00</code> converted
 characters (like ‘1’ and ‘A’) into their representative half-bytes (\x01 and \x0a). 
 This exited back into a few other functions I reversed (but also lost my notes 
 on). By doing this backtracking though, I was led to the critical branch at 0x120b, following the comparison of user against some other data to decide whether we enter
@@ -188,7 +188,7 @@ the failure halt or get our flag printed.</p>
 
 <p><img alt="Critical branch." src="/pics/SquareCTF/TheCheckOnTheInsertedHalfWord.png" width="50%" height="50%"></p>
 
-<p>I sadly lost my notes on setup. :( But if you use <code class="highlighter-rouge">help</code> inside of the bochs debugger
+<p>I sadly lost my notes on setup. :( But if you use <code class="language-plaintext highlighter-rouge">help</code> inside of the bochs debugger
 you should be able to find that these expected codes get generated consistently
 per challenge number provided. So it was just a matter of writing down 
 notes on what numbers were expected by comparing our input data to the data 
@@ -237,7 +237,7 @@ input.</p>
 I found through experimentation with the help of the architecture manual that
 they map to roughly to the following…</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[RIGHT] - 01, [LEFT] - 02
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[RIGHT] - 01, [LEFT] - 02
 [UP] - 04, [DOWN] - 08
 [A] - 0x10, [B] - 0x20
 </code></pre></div></div>

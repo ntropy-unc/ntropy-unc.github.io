@@ -19,6 +19,5 @@ Our goals include developing proficiency in:
 </ul>
 
 <h3> Meeting Time </h3>
-We're meeting Mondays 8-9PM in SN011!
-
+We're meeting Mondays 6-7PM in FB007! (Updated Fall 2019)
 </div>
