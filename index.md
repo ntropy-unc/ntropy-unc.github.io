@@ -16,7 +16,8 @@ Our goals include developing proficiency in:
 <li> Representing the University of North Carolina - Chapel Hill  </li>
 </ul>
 
+<h3> Discord </h3>
+We communicate through Discord! Join with this <a href="https://discord.gg/YjfgCz796g">link.</a>
 <h3> Meeting Time </h3>
-We're meeting Mondays 8-9PM in SN011!
+We're meeting Mondays 7-8PM in TDB!
 </div>
-
