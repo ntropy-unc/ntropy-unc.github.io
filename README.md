@@ -48,7 +48,7 @@ categories: jekyll update post events
 TBD
 
 ### Editing the website locally
-Github pages run on jekyll
+Github pages run on jekyll.
 To edit the website locally and see changes in a browser:
 1. Install Ruby
 2. Install Bundler
