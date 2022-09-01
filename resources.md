@@ -15,8 +15,8 @@ permalink: /resources/
 
 <h4>Contact</h4>
 <ul>
-<li>Email: unc@dc919.net</li>
-<li><a href="https://ntropy-unc.slack.com/">Ntropy Slack</a></li>
+<li>Email: ntropy.unc@gmail.com</li>
+<li><a href="https://discord.gg/YjfgCz796g">Ntropy Discord</a></li>
 </ul>
 
 [Club Propaganda](https://docs.google.com/presentation/d/1t0N-XU9Tjh_ZWsebjg6ikcCmJxGrM4jKJbEawurWSrE/edit#slide=id.p)

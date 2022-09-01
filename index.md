@@ -19,5 +19,5 @@ Our goals include developing proficiency in:
 <h3> Discord </h3>
 We communicate through Discord! Join with this <a href="https://discord.gg/YjfgCz796g">link.</a>
 <h3> Meeting Time </h3>
-We're meeting Mondays 7-8PM in TDB!
+We're meeting Mondays 7-8PM in FB008!
 </div>
