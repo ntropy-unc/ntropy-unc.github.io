@@ -1,0 +1,13 @@
+---
+layout: default
+title:  "Quantum Leap"
+date:   YYYY-MM-DD 
+categories: jekyll update post writeup
+---
+
+The following are writeups of challenges solved from CSAW 2022.
+
+### Quantum Leap
+
+
+### Our Spy In New Terrain (OSINT)
