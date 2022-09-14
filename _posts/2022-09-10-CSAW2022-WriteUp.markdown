@@ -10,9 +10,12 @@ The following are writeups of challenges solved from CSAW 2022.
 ### Quantum Leap
 Challenge: My friend took the quantum leap and purchased a quantum computer with two qubits. They mentioned using a quantum logic gate to input the flag and they gave me the computer's output. I have been stuck and Can NOT figure out the flag.
 
-##### Important Info:
+#### Important Info:
 * Quantum computer with two qubits
 * Flag was input through a quantum logic gate
 * "Can NOT" makes me believe the flag was input through a CNOT gate
+
+#### CNOT gate
+* If the first qubit is a 1, flip the value of the second qubit
 
 ### Our Spy In New Terrain (OSINT)
