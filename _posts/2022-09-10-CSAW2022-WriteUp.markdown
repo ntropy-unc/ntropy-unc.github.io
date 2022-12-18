@@ -6,6 +6,7 @@ categories: jekyll update post writeup
 ---
 
 The following are writeups of challenges solved from CSAW 2022.
+Author: Alex Georgiev
 
 ## Quantum Leap
 Challenge: My friend took the quantum leap and purchased a quantum computer with two qubits. They mentioned using a quantum logic gate to input the flag and they gave me the computer's output. I have been stuck and Can NOT figure out the flag.
@@ -122,3 +123,23 @@ print(flag)
 ```
 
 ## Our Spy In New Terrain (OSINT)
+**Challenge:** It is up to you to determine who The Enemy is going to attack next and when they plan to strike! Their newest recruit is on twitter as DarkRoom8109. Good luck. ```nc misc.chal.csaw.io 5005```
+
+#### Open Source Intelligence (OSINT)
+* This is an OSINT challenge
+* OSINT definition by Crowdstrike: The act of gathering and analyzing publicly available data for intelligence purposes.
+* Basically, you're supposed to scour the internet for solutions to each of the questions that the terminal application asks you. After correctly answering all of the questions in the terminal, it will print out the flag.
+
+#### Steps
+1. Visit the spy's twitter (@darkroom8109)
+2. Find deleted tweets using the Wayback machine: https://web.archive.org/web/20220820145418/c
+3. Visit the spy's GitHub: https://github.com/spyduhman/Chat-App/commit/a651d57bc0e0559da5ca9e23652d6078537db83f
+    * Here, you can view all of the commit history — including deleted files...
+4. Use an online morse code decoder () to decode the audio file
+5. You're givin a BIN code (452234) which corresponds to Toronto-Dominion Bank in Canada
+    * We used an online BIN code lookup
+6. Find the SWIFT code by using an online lookup for the Toronto-Dominion Bank
+    * TDOMCATTTOR
+7. Then, you download the YoureSoClose.pdf file and use the SWIFT code as the password
+8. The last question is "What is a crime?"
+    * Inspecting the info of the file reveals that the title of the file is "Remember: Copyright Infringement is Against the Law" — revealing the last answer of "Copyright Infringement" which results in the terminal application printing the flag
