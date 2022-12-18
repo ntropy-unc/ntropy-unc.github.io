@@ -10,6 +10,8 @@ The following are writeups of challenges solved from CSAW 2022.
 ### Quantum Leap
 Challenge: My friend took the quantum leap and purchased a quantum computer with two qubits. They mentioned using a quantum logic gate to input the flag and they gave me the computer's output. I have been stuck and Can NOT figure out the flag.
 
+Scrambled flag: wxqvn$Zae${deyZv$d"i
+
 #### Important Info:
 * Quantum computer with two qubits
 * Flag was passed through a quantum logic gate
@@ -19,6 +21,8 @@ Challenge: My friend took the quantum leap and purchased a quantum computer with
 * Classical bits are 0 or 1
 * Qubits can be 0, 1 or some state in-between
 * The message is stored with classical bits (0, 1), so first we start by converting the message into binary
+    * Message in binary: 011101110111100001110001011101100110111000100100010110100110000101100101001001000111101101100100011001010111100101011010011101100010010001100100001000100100100100001010
+  
 * Since we know the quantum computer has two qubits, we can group the bits into pairs of two, where the first bit in each pair represents the first qubit's state and the second bit represents the second qubit's state
 
 #### CNOT gate
@@ -26,7 +30,22 @@ Since the flag was (probably) passed through a CNOT gate, we can reverse this by
 
 ##### Applying the CNOT gate
 * For each pair of bits:
-*   If the first qubit is a 1, flip the value of the second qubit
-*   Otherwise, don't change the values of the pair
+    * If the first qubit is a 1, flip the value of the second qubit
+    * Otherwise, don't change the values of the pair
+
+#### Possible Solutions
+* Python: described below
+* Numpy/Linear Algebra: represent qubits as matrices and apply the CNOT gate using matrix multiplication
+* Use online binary converter and flip bits by hand
+
+#### Python Solution Structure
+* Convert the scrambled flag into binary (use Python or an online converter)
+* Split the binary string into paris of two bits
+    * E.g. 00101101 -> 00, 10, 11, 01
+* Iterate through the pairs of bits
+    * If the first bit is a 1, then flip the value of the second bit
+    * Otherwise, don't change the values of the bits
+
+#### Python Code
 
 ### Our Spy In New Terrain (OSINT)
