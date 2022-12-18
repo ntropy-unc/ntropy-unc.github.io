@@ -7,7 +7,7 @@ categories: jekyll update post writeup
 
 The following are writeups of challenges solved from CSAW 2022.
 
-### Quantum Leap
+## Quantum Leap
 Challenge: My friend took the quantum leap and purchased a quantum computer with two qubits. They mentioned using a quantum logic gate to input the flag and they gave me the computer's output. I have been stuck and Can NOT figure out the flag.
 
 Scrambled flag: wxqvn$Zae${deyZv$d"i
@@ -47,5 +47,78 @@ Since the flag was (probably) passed through a CNOT gate, we can reverse this by
     * Otherwise, don't change the values of the bits
 
 #### Python Code
+```
+# Read text from output file 
+with open('output') as f:
+  enc_flag = f.readlines()
 
-### Our Spy In New Terrain (OSINT)
+# Convert the encoded flag from a list to a string
+enc_flag = "".join(enc_flag)
+print(enc_flag)
+
+# Convert encoded flag to binary (no spaces)
+enc_flag_bin = "".join(f"{ord(letter):08b}" for letter in enc_flag)
+
+
+def break_pairs(s):
+  # Split the binary into pairs of bits
+  list_string = []
+  # Loop over string and append a letter, every other time (determined by counter),
+  # append a space
+  count = 1
+  string_to_append = ""
+
+  for l in s:
+    string_to_append += l
+    if len(string_to_append) == 2:
+      list_string.append(string_to_append)
+      string_to_append = ""
+
+  return list_string
+
+encoded_pairs = break_pairs(enc_flag_bin)
+
+
+def CNOT(pairs):
+  """If first bit is 1, flip the value of the second bit"""
+
+  new_pairs = []
+
+  for pair in pairs:
+    pair_to_append = ""
+    if pair[0] == '1':
+      flipped_second = '0'
+      if pair[1] == '0':
+        flipped_second = '1'
+
+      pair_to_append += pair[0]
+      pair_to_append += flipped_second
+
+    else:
+      pair_to_append = pair
+    new_pairs.append(pair_to_append)
+    
+
+  return new_pairs
+
+print(encoded_pairs)
+
+# Apply the CNOT gate to the pairs
+cnot_pairs = CNOT(encoded_pairs)
+print(cnot_pairs)
+
+# Convert pairs into a single string
+final_binary = "".join(cnot_pairs)
+
+print(final_binary)
+
+def bitstring_to_bytes(s):
+  return int(s, 2).to_bytes((len(s) + 7) // 8, byteorder='big')
+
+# Convert binary into text for the flag!
+flag = bitstring_to_bytes(final_binary).decode('ascii')
+
+print(flag)
+```
+
+## Our Spy In New Terrain (OSINT)
