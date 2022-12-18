@@ -12,10 +12,21 @@ Challenge: My friend took the quantum leap and purchased a quantum computer with
 
 #### Important Info:
 * Quantum computer with two qubits
-* Flag was input through a quantum logic gate
+* Flag was passed through a quantum logic gate
 * "Can NOT" makes me believe the flag was input through a CNOT gate
 
+#### Qubits and gates
+* Classical bits are 0 or 1
+* Qubits can be 0, 1 or some state in-between
+* The message is stored with classical bits (0, 1), so first we start by converting the message into binary
+* Since we know the quantum computer has two qubits, we can group the bits into pairs of two, where the first bit in each pair represents the first qubit's state and the second bit represents the second qubit's state
+
 #### CNOT gate
-* If the first qubit is a 1, flip the value of the second qubit
+Since the flag was (probably) passed through a CNOT gate, we can reverse this by applying another CNOT gate to the flag. The CNOT gate is a two-qubit operation that flips the state of the second qubit if the first qubit state is 1. So, we can cycle through each pair of bits and "apply" the CNOT gate by flipping value (0 -> 1 or 1 -> 0) of the second bit if the first bit is a 1.
+
+##### Applying the CNOT gate
+* For each pair of bits:
+*   If the first qubit is a 1, flip the value of the second qubit
+*   Otherwise, don't change the values of the pair
 
 ### Our Spy In New Terrain (OSINT)
